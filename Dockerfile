@@ -1,4 +1,4 @@
-FROM golang:1.18 as builder
+FROM golang:1.18
 
 WORKDIR /build
 
@@ -8,6 +8,4 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build ./cmd/mc-router
 
-FROM scratch
-ENTRYPOINT ["/mc-router"]
-COPY --from=builder /build/mc-router /mc-router
+ENTRYPOINT ["/build/mc-router"]
